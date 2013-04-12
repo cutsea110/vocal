@@ -1,1 +1,2 @@
-Hello: Hello
+VocalMinority: Vocal Minority
+
