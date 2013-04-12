@@ -1,0 +1,24 @@
+Default: &defaults
+  user: vocal
+  password: vocal
+  host: localhost
+  database: vocal
+  connections: 10
+
+Development:
+  <<: *defaults
+
+Testing:
+  database: vocal_test
+  <<: *defaults
+
+Staging:
+  database: vocal_staging
+  connections: 100
+  <<: *defaults
+
+Production:
+  database: vocal_production
+  connections: 100
+  host: localhost
+  <<: *defaults
