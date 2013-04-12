@@ -7,6 +7,7 @@ module Application
 
 import Import
 import Settings
+import Chat
 import Yesod.Auth
 import Yesod.Default.Config
 import Yesod.Default.Main
@@ -16,6 +17,7 @@ import qualified Database.Persist.Store
 import Network.HTTP.Conduit (newManager, def)
 import System.IO (stdout)
 import System.Log.FastLogger (mkLogger)
+import Control.Concurrent.Chan (newChan)
 
 -- Import all relevant handler modules here.
 -- Don't forget to add new modules to your cabal file!
@@ -52,13 +54,14 @@ makeApplication conf = do
 makeFoundation :: AppConfig DefaultEnv Extra -> IO App
 makeFoundation conf = do
     manager <- newManager def
+    c <- fmap Chat newChan
     s <- staticSite
     dbconf <- withYamlEnvironment "config/mongoDB.yml" (appEnv conf)
               Database.Persist.Store.loadConfig >>=
               Database.Persist.Store.applyEnv
     p <- Database.Persist.Store.createPoolConfig (dbconf :: Settings.PersistConfig)
     logger <- mkLogger True stdout
-    let foundation = App conf s p manager dbconf logger
+    let foundation = App conf s c p manager dbconf logger
 
     return foundation
 

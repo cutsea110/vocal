@@ -16,6 +16,7 @@ import Settings.StaticFiles
 import Database.Persist.MongoDB hiding (master)
 import Settings (widgetFile, Extra (..))
 import Model
+import Chat
 import Text.Jasmine (minifym)
 import Web.ClientSession (getKey)
 import Text.Hamlet (hamletFile)
@@ -28,6 +29,7 @@ import System.Log.FastLogger (Logger)
 data App = App
     { settings :: AppConfig DefaultEnv Extra
     , getStatic :: Static -- ^ Settings for static file serving.
+    , getChat :: Chat
     , connPool :: Database.Persist.Store.PersistConfigPool Settings.PersistConfig -- ^ Database connection pool.
     , httpManager :: Manager
     , persistConfig :: Settings.PersistConfig
@@ -87,6 +89,7 @@ instance Yesod App where
             $(widgetFile "normalize")
             addStylesheet $ StaticR css_bootstrap_css
             $(widgetFile "default-layout")
+            chatWidget ChatR
         hamletToRepHtml $(hamletFile "templates/default-layout-wrapper.hamlet")
 
     -- This is done to provide an optimization for serving static files from
@@ -154,6 +157,10 @@ instance YesodAuth App where
 -- achieve customized and internationalized form validation messages.
 instance RenderMessage App FormMessage where
     renderMessage _ _ = defaultFormMessage
+
+instance YesodChat App where
+  getUserName = return . userIdent . entityVal =<< requireAuth
+  isLoggedIn = return . maybe False (const True) =<< maybeAuthId
 
 -- | Get the 'Extra' value, used to hold data from the settings.yml file.
 getExtra :: Handler Extra
