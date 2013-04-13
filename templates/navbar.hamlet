@@ -26,4 +26,4 @@
                     <li><a href="">_{MsgMaintUser}</a>
                 <li .divider>
               <li><a href=""><i class="glyphicon-settings"></i> _{MsgSettings}</a>
-              <li><a href=""><i class="glyphicon-power"></i> _{MsgLogout}</a>
+              <li><a href="@{AuthR LogoutR}"><i class="glyphicon-power"></i> _{MsgLogout}</a>
