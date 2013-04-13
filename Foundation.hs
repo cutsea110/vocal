@@ -8,6 +8,7 @@ import Yesod.Auth.BrowserId
 import Yesod.Auth.GoogleEmail
 import Yesod.Auth.Facebook.ServerSide
 import Facebook (Credentials(Credentials))
+import Yesod.Auth.OAuth hiding (insert)
 import Yesod.Default.Config
 import Yesod.Default.Util (addStaticContentExternal)
 import Network.HTTP.Conduit (Manager)
@@ -24,6 +25,7 @@ import Text.Hamlet (hamletFile)
 import System.Log.FastLogger (Logger)
 import Control.Applicative ((<$>),(<*>))
 import Data.Text (Text)
+import Data.Text.Encoding (encodeUtf8)
 import Helpers.Util
 
 -- | The site argument for your application. This can be a good place to
@@ -178,6 +180,9 @@ instance YesodAuth App where
                          "561110927256658"
                          "31197cc5dab112ec1568c7966235ee8a")
                         ["user_about_me", "email"]
+                    , authTwitter
+                        (encodeUtf8 "OQBdXKHRsPbQNPW97Qzkpg")
+                        (encodeUtf8 "sOE06xuIneALurRx7eWV8bsu2ukyvdOypl14RXZK7g")
                     , authBrowserId
                     ]
 
