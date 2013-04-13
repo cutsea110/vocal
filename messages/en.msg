@@ -7,3 +7,5 @@ AdminTool: Admin Tool
 MaintUser: Maint users
 Settings: Settings
 Logout: Logout
+
+Field group@Text: Minority field for #{group}

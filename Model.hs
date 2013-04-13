@@ -6,6 +6,7 @@ import Data.Text (Text)
 import Database.Persist.Quasi
 import Database.Persist.MongoDB hiding (master)
 import Language.Haskell.TH.Syntax
+import Data.Time
 import Helpers.Util
 
 -- You can define all of your database entities in the entities file.
