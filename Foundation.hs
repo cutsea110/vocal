@@ -92,6 +92,7 @@ instance Yesod App where
 
       pc <- widgetToPageContent $ do
         $(widgetFile "normalize")
+        addScriptRemote "http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"
         addStylesheet $ StaticR css_bootstrap_min_css
         addStylesheet $ StaticR css_bootstrap_responsive_min_css
         addScript $ StaticR js_bootstrap_min_js
