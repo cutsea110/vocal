@@ -20,6 +20,7 @@ library
                      Settings
                      Settings.StaticFiles
                      Settings.Development
+                     Handler.Top
                      Handler.Home
                      Helpers.Util
 

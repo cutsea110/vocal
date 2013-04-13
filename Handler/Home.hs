@@ -18,6 +18,3 @@ getHomeR = do
 
 getHelpR :: Handler RepHtml
 getHelpR = undefined
-
-getTopR :: Handler RepHtml
-getTopR = undefined
