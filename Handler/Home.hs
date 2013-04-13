@@ -12,28 +12,12 @@ import Import
 -- inclined, or create a single monolithic file.
 getHomeR :: Handler RepHtml
 getHomeR = do
-    (formWidget, formEnctype) <- generateFormPost sampleForm
-    let submission = Nothing :: Maybe (FileInfo, Text)
-        handlerName = "getHomeR" :: Text
-    defaultLayout $ do
-        aDomId <- lift newIdent
-        setTitle "Welcome To Yesod!"
-        $(widgetFile "homepage")
+  defaultLayout $ do
+    setTitle "Welcome To Yesod!"
+    $(widgetFile "homepage")
 
-postHomeR :: Handler RepHtml
-postHomeR = do
-    ((result, formWidget), formEnctype) <- runFormPost sampleForm
-    let handlerName = "postHomeR" :: Text
-        submission = case result of
-            FormSuccess res -> Just res
-            _ -> Nothing
+getHelpR :: Handler RepHtml
+getHelpR = undefined
 
-    defaultLayout $ do
-        aDomId <- lift newIdent
-        setTitle "Welcome To Yesod!"
-        $(widgetFile "homepage")
-
-sampleForm :: Form (FileInfo, Text)
-sampleForm = renderDivs $ (,)
-    <$> fileAFormReq "Choose a file"
-    <*> areq textField "What's on the file?" Nothing
+getTopR :: Handler RepHtml
+getTopR = undefined

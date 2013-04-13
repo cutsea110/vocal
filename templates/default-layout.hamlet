@@ -1,3 +1,8 @@
-$maybe msg <- mmsg
-    <div #message>#{msg}
-^{widget}
+<div .container>
+  ^{navbar}
+  ^{widget}
+  ^{chat}
+<div .footer>
+  <div .container>
+   <hr .divider>
+   <p .muted.credit>copyright Katsutoshi Itoh 2012-2013. powered by <a href="http://www.yesodweb.com">yesod.</a>

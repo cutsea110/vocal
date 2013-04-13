@@ -21,6 +21,8 @@ import Text.Jasmine (minifym)
 import Web.ClientSession (getKey)
 import Text.Hamlet (hamletFile)
 import System.Log.FastLogger (Logger)
+import Control.Applicative ((<$>),(<*>))
+import Helpers.Util
 
 -- | The site argument for your application. This can be a good place to
 -- keep settings and values requiring initialization before your application
@@ -76,8 +78,11 @@ instance Yesod App where
         return . Just $ clientSessionBackend2 key getCachedDate
 
     defaultLayout widget = do
-        master <- getYesod
-        mmsg <- getMessage
+      mu <- maybeAuth
+      isadmin <- isAdmin
+      master <- getYesod
+      mcr <- fmap <$> getRouteToMaster <*> getCurrentRoute
+      mmsg <- getMessage
 
         -- We break up the default layout into two components:
         -- default-layout is the contents of the body tag, and
@@ -85,12 +90,16 @@ instance Yesod App where
         -- value passed to hamletToRepHtml cannot be a widget, this allows
         -- you to use normal widget features in default-layout.
 
-        pc <- widgetToPageContent $ do
-            $(widgetFile "normalize")
-            addStylesheet $ StaticR css_bootstrap_css
-            $(widgetFile "default-layout")
-            chatWidget ChatR
-        hamletToRepHtml $(hamletFile "templates/default-layout-wrapper.hamlet")
+      pc <- widgetToPageContent $ do
+        $(widgetFile "normalize")
+        addStylesheet $ StaticR css_bootstrap_min_css
+        addStylesheet $ StaticR css_bootstrap_responsive_min_css
+        addScript $ StaticR js_bootstrap_min_js
+        addStylesheet $ StaticR css_glyphicons_css
+        let navbar = $(widgetFile "navbar")
+            chat = chatWidget ChatR
+        $(widgetFile "default-layout")
+      hamletToRepHtml $(hamletFile "templates/default-layout-wrapper.hamlet")
 
     -- This is done to provide an optimization for serving static files from
     -- a separate domain. Please see the staticRoot setting in Settings.hs
@@ -100,6 +109,9 @@ instance Yesod App where
 
     -- The page to be redirected to when authentication is required.
     authRoute _ = Just $ AuthR LoginR
+    
+    -- access controls
+    isAuthorized _ _ = return Authorized
 
     -- This function creates static content files in the static folder
     -- and names them based on a hash of their content. This allows
@@ -122,6 +134,9 @@ instance Yesod App where
         development || level == LevelWarn || level == LevelError
 
     getLogger = return . appLogger
+
+isAdmin :: GHandler s App Bool
+isAdmin = fmap (maybe False $ (=="cutsea110@gmail.com").userIdent.entityVal) maybeAuth
 
 -- How to run database actions.
 instance YesodPersist App where
