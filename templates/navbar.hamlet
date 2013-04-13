@@ -2,7 +2,7 @@
 <div .navbar.navbar-inverse.navbar-fixed-top>
   <div .navbar-inner>
     <div .container>
-      <a href="@{TopR}" .brand>_{MsgVocalMinority}</a>
+      <a href="@{TopR}" .brand>_{MsgVocalMinority}
       <ul .nav>
         $maybe cr <- mcr
           <li :cr == HomeR:.active><a href="@{HomeR}"><i class="icon-home"></i> _{MsgHome}</a>
@@ -18,10 +18,10 @@
           <li .dropdown>
             <a href="" .dropdown-toggle data-toggle="dropdown">
               #{userIdent usr} #
-              <span class="caret">
+              <b class="caret">
             <ul .dropdown-menu>
               $if isadmin
-                <li .dropdown-submenu><a href="#"><i class="glyphicon-claw_hammer"></i> _{MsgAdminTool}</a>
+                <li .dropdown-submenu><a href=""><i class="glyphicon-claw_hammer"></i> _{MsgAdminTool}</a>
                   <ul .dropdown-menu>
                     <li><a href="">_{MsgMaintUser}</a>
                 <li .divider>
