@@ -6,6 +6,8 @@ import Yesod.Static
 import Yesod.Auth
 import Yesod.Auth.BrowserId
 import Yesod.Auth.GoogleEmail
+import Yesod.Auth.Facebook.ServerSide
+import Facebook (Credentials(Credentials))
 import Yesod.Default.Config
 import Yesod.Default.Util (addStaticContentExternal)
 import Network.HTTP.Conduit (Manager)
@@ -169,7 +171,15 @@ instance YesodAuth App where
                 fmap Just $ insert $ User (credsIdent creds) Nothing
 
     -- You can add other plugins like BrowserID, email or OAuth here
-    authPlugins _ = [authBrowserId, authGoogleEmail]
+    authPlugins _ = [ authGoogleEmail
+                    , authFacebook
+                        (Credentials
+                         "Vocal Minority"
+                         "561110927256658"
+                         "31197cc5dab112ec1568c7966235ee8a")
+                        ["user_about_me", "email"]
+                    , authBrowserId
+                    ]
 
     authHttpManager = httpManager
 
