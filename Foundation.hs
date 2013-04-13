@@ -177,7 +177,7 @@ instance YesodAuth App where
                          "Vocal Minority"
                          "561110927256658"
                          "31197cc5dab112ec1568c7966235ee8a")
-                        ["user_abount_me", "email"]
+                        ["user_about_me", "email"]
                     , authBrowserId
                     ]
 
