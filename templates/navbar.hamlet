@@ -1,0 +1,29 @@
+<!-- Nav menu -->
+<div .navbar.navbar-inverse.navbar-fixed-top>
+  <div .navbar-inner>
+    <div .container>
+      <a href="@{TopR}" .brand>_{MsgVocalMinority}
+      <ul .nav>
+        $maybe cr <- mcr
+          <li :cr == HomeR:.active><a href="@{HomeR}"><i class="icon-home"></i> _{MsgHome}</a>
+          <li :cr == HelpR:.active><a href="@{HelpR}">_{MsgHelp}</a>
+        $nothing
+          <li><a href="@{HomeR}"><i class="icon-home"></i> _{MsgHome}</a>
+          <li><a href="@{HelpR}">_{MsgHelp}</a>
+      $maybe Entity _ usr <- mu
+        $with h <- userMd5hash usr
+          <span .nav.pull-right>
+            <img .gravatar src="#{gravatarUrl 36 h}" alt=Gravatar">
+        <ul .nav.pull-right>
+          <li .dropdown>
+            <a href="" .dropdown-toggle data-toggle="dropdown">
+              #{userIdent usr} #
+              <b class="caret">
+            <ul .dropdown-menu>
+              $if isadmin
+                <li .dropdown-submenu><a href=""><i class="glyphicon-claw_hammer"></i> _{MsgAdminTool}</a>
+                  <ul .dropdown-menu>
+                    <li><a href="">_{MsgMaintUser}</a>
+                <li .divider>
+              <li><a href=""><i class="glyphicon-settings"></i> _{MsgSettings}</a>
+              <li><a href=""><i class="glyphicon-power"></i> _{MsgLogout}</a>

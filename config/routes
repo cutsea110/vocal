@@ -4,5 +4,7 @@
 /favicon.ico FaviconR GET
 /robots.txt RobotsR GET
 
-/ HomeR GET POST
-/chat ChatR Chat getChat
+/               TopR         GET
+/home           HomeR        GET
+/minority/#Text FieldR       GET
+/help           HelpR        GET

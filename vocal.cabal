@@ -13,14 +13,16 @@ Flag library-only
 
 library
     exposed-modules: Application
-                     Chat
                      Foundation
                      Import
                      Model
                      Settings
                      Settings.StaticFiles
                      Settings.Development
+                     Handler.Top
                      Handler.Home
+                     Handler.Field
+                     Helpers.Util
 
     if flag(dev) || flag(library-only)
         cpp-options:   -DDEVELOPMENT
@@ -75,6 +77,9 @@ library
                  , fast-logger                   >= 0.3
                  , blaze-builder                 >= 0.3        && < 0.4
                  , wai-eventsource               >= 1.3        && < 1.4
+                 , pureMD5                       >= 2.1        && < 2.2
+                 , utf8-string                   >= 0.3        && < 0.4
+                 , time                          >= 1.4        && < 1.5
 
 executable         vocal
     if flag(library-only)
