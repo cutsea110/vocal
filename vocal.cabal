@@ -49,6 +49,8 @@ library
                  , yesod                         >= 1.1.5      && < 1.2
                  , yesod-core                    >= 1.1.7      && < 1.2
                  , yesod-auth                    >= 1.1        && < 1.2
+                 , yesod-auth-fb                 >= 1.5        && < 1.6
+                 , fb                            >= 0.14       && < 0.15
                  , yesod-static                  >= 1.1        && < 1.2
                  , yesod-default                 >= 1.1        && < 1.2
                  , yesod-form                    >= 1.1        && < 1.3
