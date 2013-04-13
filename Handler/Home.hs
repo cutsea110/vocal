@@ -13,8 +13,8 @@ import Import
 getHomeR :: Handler RepHtml
 getHomeR = do
   defaultLayout $ do
-    setTitle "Welcome To Yesod!"
-    $(widgetFile "homepage")
+    setTitleI MsgWelcome
+    $(widgetFile "home")
 
 getHelpR :: Handler RepHtml
 getHelpR = undefined
