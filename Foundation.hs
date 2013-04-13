@@ -110,6 +110,7 @@ instance Yesod App where
     authRoute _ = Just $ AuthR LoginR
     
     -- access controls
+    isAuthorized HomeR _ = loggedInAuth
     isAuthorized _ _ = return Authorized
 
     -- This function creates static content files in the static folder
@@ -133,6 +134,11 @@ instance Yesod App where
         development || level == LevelWarn || level == LevelError
 
     getLogger = return . appLogger
+
+
+-- Utility functions for isAuthorized
+loggedInAuth :: GHandler s App AuthResult
+loggedInAuth = fmap (maybe AuthenticationRequired $ const Authorized) maybeAuthId
 
 isAdmin :: GHandler s App Bool
 isAdmin = fmap (maybe False $ (=="cutsea110@gmail.com").userIdent.entityVal) maybeAuth

@@ -31,7 +31,6 @@ newIdent3 = (,,) <$> newIdent <*> newIdent <*> newIdent
 newIdent4 :: Yesod m => GHandler s m (Text, Text, Text, Text)
 newIdent4 = (,,,) <$> newIdent <*> newIdent <*> newIdent <*> newIdent
 
-
 toGravatarHash :: Text -> Text
 toGravatarHash = T.pack . show . md5 . BL.fromString . map toLower . trim . T.unpack
   where
